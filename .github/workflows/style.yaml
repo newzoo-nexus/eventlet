@@ -1,0 +1,19 @@
+name: style
+on:
+  push:
+  pull_request:
+jobs:
+  style:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: setup python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+      - name: install tox
+        run: pip install tox
+      - name: run tests
+        run: tox --verbose -e pep8
